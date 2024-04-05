@@ -10,7 +10,7 @@
     "enzyme": "2.2.0",
     "flatten": "^1.0.2",
     "ignore-styles": "1.2.0",
-    "jsdom": "8.5.0",
+    "jsdom": "16.5.0",
     "mocha": "2.4.5",
     "mocha-jsdom": "1.1.0",
     "react-addons-test-utils": "15.0.2",
