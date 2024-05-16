@@ -1,4 +1,5 @@
 import shuffle from 'shuffle-array';
+import { calculateCardScore } from './scores/scores';
 
 const suits = ['♣', '♦', '♥', '♠'];
 const values = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A'];
@@ -10,16 +11,7 @@ export const card = (value, suit) => ({
   suit,
   color: colors[suit],
   get score() {
-    switch (this.value) {
-      case 'A':
-        return 11;
-      case 'K':
-      case 'Q':
-      case 'J':
-        return 10;
-      default:
-        return this.value;
-    }
+    return calculateCardScore(this.value);
   }
 });
 

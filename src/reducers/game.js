@@ -15,19 +15,36 @@ const initialState = {
   status: statuses.PLAYING
 };
 
+const calculateOutcomeStatus = (playerScore, dealerScore) => {
+  if (playerScore === 21) return statuses.WIN;
+  if (playerScore > 21 || dealerScore === 21) return statuses.LOSE;
+  if (dealerScore > 21 || playerScore > dealerScore) return statuses.WIN;
+  if (playerScore < dealerScore) return statuses.LOSE;
+  return statuses.PLAYING;
+};
+
+const revealDealerHand = (dealerHand) => {
+  const turnAllFaceDown =  c => ({ ...c, faceDown: false });
+  return dealerHand.map(turnAllFaceDown);
+};
+
+const dealCards = (state) => {
+  let [playerCard1, dealerCard1, playerCard2, dealerCard2] = state.drawPile;
+  dealerCard1 = { ...dealerCard1, faceDown: true };
+
+  return {
+    ...state,
+    drawPile: state.drawPile.slice(4),
+    dealerHand: [dealerCard1, dealerCard2],
+    playerHand: [playerCard1, playerCard2],
+    status: statuses.PLAYING
+  };
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'DEAL':
-      let [playerCard1, dealerCard1, playerCard2, dealerCard2] = state.drawPile;
-      dealerCard1 = { ...dealerCard1, faceDown: true };
-
-      return {
-        ...state,
-        drawPile: state.drawPile.slice(4),
-        dealerHand: [dealerCard1, dealerCard2],
-        playerHand: [playerCard1, playerCard2],
-        status: statuses.PLAYING
-      };
+      return dealCards(state);
 
     case 'HIT':
       const [drawnCard, ...remainingPile] = state.drawPile;
@@ -48,21 +65,10 @@ const reducer = (state = initialState, action) => {
       };
 
     case 'OUTCOME':
-      const calculateStatus = () => {
-        if (state.playerScore === 21) return statuses.WIN;
-        if (state.playerScore > 21) return statuses.LOSE;
-        if (state.dealerScore > 21) return statuses.WIN;
-        if (state.playerScore >= state.dealerScore) return statuses.WIN;
-        if (state.playerScore < state.dealerScore) return statuses.LOSE;
-        return statuses.PLAYING;
-      };
-
-      const turnAllFaceDown =  c => ({ ...c, faceDown: false });
-
       return {
         ...state,
-        dealerHand: state.dealerHand.map(turnAllFaceDown),
-        status: calculateStatus()
+        dealerHand: revealDealerHand(state.dealerHand),
+        status: calculateOutcomeStatus(state.playerScore, state.dealerScore)
       };
 
     default:
