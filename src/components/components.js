@@ -48,8 +48,8 @@ export const BlackjackGame = ({
     <Hand label="Your Hand: " cards={ playerHand } />
     <div>Your Score: { playerScore }</div>
     <hr />
-    <button onClick={ () => hit('player') }>Hit</button>
-    <button onClick={ stand }>Stand</button>
+    <button disabled = {dealerHand.length ===0 ||status!=statuses.PLAYING ||drawPile && drawPile.length === 0 } onClick={ () => hit('player') }>Hit</button>
+    <button disabled = {dealerHand.length ===0||status!=statuses.PLAYING||drawPile && drawPile.length === 0} onClick={ stand }>Stand</button>
     <hr />
     <div style={{ fontWeight: 'bold' }}>{ status }</div>
   </div>;
