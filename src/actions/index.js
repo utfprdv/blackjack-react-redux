@@ -22,3 +22,7 @@ export const stand = () => (dispatch, getState) => {
   }
   dispatch({ type: 'OUTCOME' });
 };
+
+export const quit = () => (dispatch, getState) => {
+  dispatch({ type: 'QUIT' });
+};
