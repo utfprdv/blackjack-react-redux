@@ -26,6 +26,7 @@ export const BlackjackGame = ({
     deal,
     hit,
     stand,
+    quit,
     drawPile,
     dealerHand,
     playerHand,
@@ -50,6 +51,7 @@ export const BlackjackGame = ({
     <hr />
     <button onClick={ () => hit('player') }>Hit</button>
     <button onClick={ stand }>Stand</button>
+    <button onClick={ quit }>Quit</button>
     <hr />
     <div style={{ fontWeight: 'bold' }}>{ status }</div>
   </div>;
