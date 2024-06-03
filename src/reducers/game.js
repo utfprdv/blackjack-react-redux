@@ -70,6 +70,16 @@ const reducer = (state = initialState, action) => {
         dealerHand: revealDealerHand(state.dealerHand),
         status: calculateOutcomeStatus(state.playerScore, state.dealerScore)
       };
+    
+      case 'QUIT':
+        return {
+          ...state,
+          dealerHand: [],
+          playerHand: [],
+          dealerScore: 0,
+          playerScore: 0,
+          status: ''
+        }
 
     default:
       return state;
