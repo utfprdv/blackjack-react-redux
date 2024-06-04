@@ -35,10 +35,10 @@ export const BlackjackGame = ({
     status
 }) =>
   <div>
-    <button onClick={ deal }>Deal</button>
+    <button disabled ={ drawPile && drawPile.length === 0 }onClick={ deal }>Deal</button>
     <hr />
     { drawPile && drawPile.length === 0 &&
-      [<div>Deck is empty, refresh for a new game.</div>,
+      [<div>Deck is empty, refresh for a new game. <button onClick={newGame}>Restart game</button></div>,
        <hr />] }
     <Hand label="Dealer: " cards={ dealerHand } />
     <div>Dealer Score: {
