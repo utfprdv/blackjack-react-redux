@@ -2,6 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { statuses } from '../reducers/game';
+import { getIndex, languages, setIndex, switchLanguage } from '../config/languages/languages';
+
+var language = languages[getIndex()];
+
+const __switchLanguage = () => {
+  switchLanguage();
+  language = languages[getIndex()];
+}
 
 export const Card = ({ color, face, faceDown }) =>
     faceDown
@@ -35,23 +43,27 @@ export const BlackjackGame = ({
     status
 }) =>
   <div>
-    <button disabled ={ drawPile && drawPile.length === 0 }onClick={ deal }>Deal</button>
+    <button disabled ={ drawPile && drawPile.length === 0 }onClick={ deal }>{language.deal}</button>
+    <button onClick={()=> {
+      __switchLanguage();
+      quit();
+     }}>{language.profile}</button>
     <hr />
     { drawPile && drawPile.length === 0 &&
-      [<div>Deck is empty, refresh for a new game. <button onClick={newGame}>Restart game</button></div>,
+      [<div>{language.deckEmptyMsg} <button onClick={newGame}>Restart game</button></div>,
        <hr />] }
-    <Hand label="Dealer: " cards={ dealerHand } />
-    <div>Dealer Score: {
+    <Hand label={language.dealerHand} cards={ dealerHand } />
+    <div>{language.dealerScore} {
         status === statuses.PLAYING
             ? '?'
             : dealerScore }</div>
     <hr />
-    <Hand label="Your Hand: " cards={ playerHand } />
-    <div>Your Score: { playerScore }</div>
+    <Hand label={language.playerHand} cards={ playerHand } />
+    <div>{language.playerScore} { playerScore }</div>
     <hr />
-    <button disabled = {dealerHand.length ===0 ||status!=statuses.PLAYING ||drawPile && drawPile.length === 0 } onClick={ () => hit('player') }>Hit</button>
-    <button disabled = {dealerHand.length ===0||status!=statuses.PLAYING||drawPile && drawPile.length === 0} onClick={ stand }>Stand</button>
-    <button onClick={ quit }>Quit</button>
+    <button disabled = {dealerHand.length ===0 ||status!=statuses.PLAYING ||drawPile && drawPile.length === 0 } onClick={ () => hit('player') }>{language.hit}</button>
+    <button disabled = {dealerHand.length ===0 ||status!=statuses.PLAYING ||drawPile && drawPile.length === 0} onClick={ stand }>{language.stand}</button>
+    <button disabled = {dealerHand.length ===0 ||status!=statuses.PLAYING ||drawPile && drawPile.length === 0 } onClick={ quit }>{language.quit}</button>
     <hr />
     <div style={{ fontWeight: 'bold' }}>{ status }</div>
   </div>;
