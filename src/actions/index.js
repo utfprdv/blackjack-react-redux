@@ -26,3 +26,7 @@ export const stand = () => (dispatch, getState) => {
 export const quit = () => (dispatch, getState) => {
   dispatch({ type: 'QUIT' });
 };
+
+export const newGame = () => (dispatch, getState) => {
+  dispatch({ type: 'NEWGAME' });
+};

@@ -81,6 +81,17 @@ const reducer = (state = initialState, action) => {
           status: ''
         }
 
+      case 'NEWGAME':
+        return {
+          ...state,
+          drawPile: newShuffledPokerDeck(),
+          dealerHand: [],
+          dealerScore: 0,
+          playerHand: [],
+          playerScore: 0,
+          status: statuses.PLAYING
+        }
+
     default:
       return state;
   }

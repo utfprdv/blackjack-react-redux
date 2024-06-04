@@ -43,14 +43,14 @@ export const BlackjackGame = ({
     status
 }) =>
   <div>
-    <button onClick={ deal }>{language.deal}</button>
+    <button disabled ={ drawPile && drawPile.length === 0 }onClick={ deal }>{language.deal}</button>
     <button onClick={()=> {
       __switchLanguage();
       quit();
      }}>{language.profile}</button>
     <hr />
     { drawPile && drawPile.length === 0 &&
-      [<div>{language.deckEmptyMsg}</div>,
+      [<div>{language.deckEmptyMsg} <button onClick={newGame}>Restart game</button></div>,
        <hr />] }
     <Hand label={language.dealerHand} cards={ dealerHand } />
     <div>{language.dealerScore} {
