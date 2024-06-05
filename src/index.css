@@ -10,7 +10,7 @@ body {
 }
 
 .b-table {
-  min-width: 800px;
+  min-width: 500px;
 }
 
 .title {
@@ -73,7 +73,7 @@ body {
   border-radius: 4px;
 }
 .action {
-  margin: 20px 0 40px 0;
+  margin: 20px 0 10px 0;
 }
 .deal {
   appearance: none;
@@ -107,4 +107,34 @@ body {
 }
 button:disabled {
   opacity: 0.5
+}
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal {
+  background: white;
+  border-radius: 8px;
+  width: 400px;
+  height: 200px;
+  z-index: 1;
+}
+.modal-content {
+  text-align: center;
+  font-size: 100px;
+}
+.modal-header {
+  text-align: right;
+  padding: 10px;
+}
+.modal-header button {
+  background: transparent;
+  border: 0;
 }

@@ -13,7 +13,9 @@ const initialState = {
   dealerScore: 0,
   playerHand: [],
   playerScore: 0,
-  status: statuses.WAITING
+  status: statuses.WAITING,
+  playerWins: 0,
+  dealerWins: 0,
 };
 
 const calculateOutcomeStatus = (playerScore, dealerScore) => {
@@ -92,7 +94,20 @@ const reducer = (state = initialState, action) => {
           playerScore: 0,
           status: statuses.PLAYING
         }
-
+    case 'SCORE':
+      return {
+        ...state,
+        ...(action.payload === 'player' ? {
+          playerWins: state.playerWins + 1
+        }: {
+          dealerWins: state.dealerWins + 1
+        })
+      }
+    case 'RESTART':
+        return {
+          ...state,
+          playerWins: state.playerWins >= 1 ? state.playerWins - 1 : 0
+        }
     default:
       return state;
   }

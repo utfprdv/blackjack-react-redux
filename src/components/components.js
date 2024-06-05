@@ -79,6 +79,7 @@ export const Hand = ({ label, cards, score }) =>
       )}
     </div>
   </div>;
+<<<<<<< Updated upstream
 function statusfn(status) {
   switch (status) {
     case 'Playing':
@@ -94,7 +95,27 @@ function statusfn(status) {
       return `${language.waiting} 🕤`;
       break;
   }
+=======
+
+const Modal = ({ children, isOpen, onClick, score}) => {
+  return (
+    isOpen ? <div className='backdrop' onClick={() => {
+      onClick();
+      score(children === 'Win' ? 'player' : 'dealer')
+    }}>
+      <div className='modal'>
+        <div className='modal-header'>
+          <button>Close</button>
+        </div>
+        <div className='modal-content'>
+          {children}
+        </div>
+      </div>
+    </div> : null
+  )
+>>>>>>> Stashed changes
 }
+
 export const BlackjackGame = ({
     newGame,
     deal,
@@ -106,9 +127,17 @@ export const BlackjackGame = ({
     playerHand,
     dealerScore,
     playerScore,
-    status
+    status,
+    playerWins,
+    dealerWins,
+    score,
+    restart,
 }) =>
   <div className="b-table">
+    <Modal isOpen={status === 'Win' || status === 'Lose'} onClick={newGame} score={score}>
+      {status}
+    </Modal>
+
     <div style={{ display: 'flex'}}>
       <div style={{ flex: '1 1 auto'}}>
         <div className="submenu">
@@ -130,7 +159,10 @@ export const BlackjackGame = ({
               {language.deal}
           </button>
         </div>
-
+            <div style={{ display: 'flex', justifyContent: 'space-between', padding: 12, background: 'rgba(255, 255, 255, 0.1)', marginBottom: 24, borderRadius: 4 }}>
+              <span style={{ color: 'white'}}>{language.playerWins}: { playerWins }</span>
+              <span style={{ color: 'white'}}>{language.dealerWins}: { dealerWins }</span>
+            </div>
         { drawPile && drawPile.length === 0 &&
           <div style={{ fontWeight: 'bold', display: 'flex', justifyContent: 'center', alignItems: 'center', flex: '1 1 auto', color: 'white', fontSize: 50}}>{language.deckEmptyMsg} 
             <div style={{ display: 'flex', justifyContent: 'center', margin: 24 }} className="actions-btn"> 
@@ -168,10 +200,15 @@ export const BlackjackGame = ({
             onClick={ quit }>
               {language.quit}
           </button>
+          <button
+            disabled={dealerHand.length === 0 || status !== statuses.PLAYING || drawPile && drawPile.length === 0}
+            onClick={ () => {
+              restart();
+              quit();
+            } }>
+              {language.restart}
+          </button>
         </div>
-      </div>
-      <div style={{ fontWeight: 'bold', display: 'flex', justifyContent: 'center', alignItems: 'center', flex: '1 1 auto', color: 'white', fontSize: 50}}>
-        { statusfn(status) }
       </div>
     </div>
   </div>;

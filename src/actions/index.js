@@ -30,3 +30,11 @@ export const quit = () => (dispatch, getState) => {
 export const newGame = () => (dispatch, getState) => {
   dispatch({ type: 'NEWGAME' });
 };
+
+export const score = (who) => (dispatch, getState) => {
+  dispatch({ type: 'SCORE', payload: who })
+}
+
+export const restart = () => (dispatch) => {
+  dispatch({ type: 'RESTART' })
+}
