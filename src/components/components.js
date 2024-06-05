@@ -11,6 +11,20 @@ const __switchLanguage = () => {
   language = languages[getIndex()];
 }
 
+const __getStatus = (status) => {
+  switch(status){
+    case 'Playing':
+      return language.playing
+    case 'Win':
+      return language.win
+    case 'Lose':
+      return language.lose
+    case 'Waiting':
+      return language.waiting
+    break;
+  }
+}
+
 export const Card = ({ color, face, faceDown }) =>
     faceDown
       ? (<div className="grid-item card">
@@ -117,7 +131,7 @@ export const BlackjackGame = ({
 }) =>
   <div className="b-table">
     <Modal isOpen={status === 'Win' || status === 'Lose'} onClick={newGame} score={score}>
-      {status}
+      {__getStatus(status)}
     </Modal>
 
     <div style={{ display: 'flex'}}>
