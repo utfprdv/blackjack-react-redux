@@ -13,7 +13,8 @@ export const languages = [
         playing: "Playing",
         win: "Win",
         lose: "Lose",
-        waiting: "Waiting"
+        waiting: "Waiting",
+        restartGame:"Restart Game"
     },
     {
         profile: "Trocar idioma",
@@ -29,7 +30,9 @@ export const languages = [
         playing: "Jogando",
         win: "Vitória",
         lose: "Derrota",
-        waiting: "Aguardando"
+        waiting: "Aguardando",
+        restartGame:"Recomeçar jogo"
+
     }
 ];
 

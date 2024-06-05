@@ -132,7 +132,12 @@ export const BlackjackGame = ({
         </div>
 
         { drawPile && drawPile.length === 0 &&
-          <div>{language.deckEmptyMsg} <button onClick={newGame}>Restart game</button></div> }
+          <div style={{ fontWeight: 'bold', display: 'flex', justifyContent: 'center', alignItems: 'center', flex: '1 1 auto', color: 'white', fontSize: 50}}>{language.deckEmptyMsg} 
+            <div style={{ display: 'flex', justifyContent: 'center', margin: 24 }} className="actions-btn"> 
+              <button   onClick={newGame} >{language.restartGame}</button>
+            </div>
+          </div>
+        }
 
           <div>
             <Hand
