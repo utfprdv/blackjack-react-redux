@@ -79,23 +79,6 @@ export const Hand = ({ label, cards, score }) =>
       )}
     </div>
   </div>;
-<<<<<<< Updated upstream
-function statusfn(status) {
-  switch (status) {
-    case 'Playing':
-      return `${language.playing} 🃏`
-      break;
-    case 'Win':
-        return `${language.win} 🎉`
-      break;
-    case 'Lose':
-        return `${language.lose} 😩`
-      break;
-    case 'Waiting':
-      return `${language.waiting} 🕤`;
-      break;
-  }
-=======
 
 const Modal = ({ children, isOpen, onClick, score}) => {
   return (
@@ -113,7 +96,6 @@ const Modal = ({ children, isOpen, onClick, score}) => {
       </div>
     </div> : null
   )
->>>>>>> Stashed changes
 }
 
 export const BlackjackGame = ({

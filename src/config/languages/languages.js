@@ -11,16 +11,13 @@ export const languages = [
         playerHand: "Your Hand",
         playerScore: "Your Score: ",
         playing: "Playing",
-<<<<<<< Updated upstream
         win: "Win",
         lose: "Lose",
         waiting: "Waiting",
-        restartGame:"Restart Game"
-=======
+        restartGame:"Restart Game",
         playerWins: 'Player Wins',
         dealerWins: 'Dealer Wins',
         restart: 'Restart'
->>>>>>> Stashed changes
     },
     {
         restart: 'Recomeçar',
