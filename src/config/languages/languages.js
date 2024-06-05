@@ -11,6 +11,9 @@ export const languages = [
         playerHand: "Your Hand",
         playerScore: "Your Score: ",
         playing: "Playing",
+        win: "Win",
+        lose: "Lose",
+        waiting: "Waiting"
     },
     {
         profile: "Trocar idioma",
@@ -24,6 +27,9 @@ export const languages = [
         playerHand: "Sua mão",
         playerScore: "Sua pontuação: ",
         playing: "Jogando",
+        win: "Vitória",
+        lose: "Derrota",
+        waiting: "Aguardando"
     }
 ];
 
