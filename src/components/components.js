@@ -82,16 +82,16 @@ export const Hand = ({ label, cards, score }) =>
 function statusfn(status) {
   switch (status) {
     case 'Playing':
-      return `${status} 🃏`
+      return `${language.playing} 🃏`
       break;
     case 'Win':
-        return `${status} 🎉`
+        return `${language.win} 🎉`
       break;
     case 'Lose':
-        return `${status} 😩`
+        return `${language.lose} 😩`
       break;
     case 'Waiting':
-      return `${status} 🕤`;
+      return `${language.waiting} 🕤`;
       break;
   }
 }
