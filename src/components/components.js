@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { statuses } from '../reducers/game';
-import { getIndex, languages, setIndex, switchLanguage } from '../config/languages/languages';
+import { getIndex, languages, switchLanguage } from '../config/languages/languages';
 
 var language = languages[getIndex()];
 
@@ -13,22 +13,88 @@ const __switchLanguage = () => {
 
 export const Card = ({ color, face, faceDown }) =>
     faceDown
-      ? <span>? </span>
-      : <span style={ { color } }>{ face } </span>;
+      ? (<div className="grid-item card">
+      <div className="top-left">
+        <div>?</div>
+      </div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div className="bottom-right">
+        <div>?</div>
+      </div>
+    </div>)
+      : (
+        <div className="grid-item card">
+          <div className="top-left">
+            <div style={{ color }}>{ face }</div>
+          </div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div className="bottom-right">
+            <div style={{ color }}>{ face }</div>
+          </div>
+        </div>
+      );
 
-export const Hand = ({ label, cards }) =>
-  <div>
-    <label>{ label }</label>
-    { cards.map((card, i) =>
-      <Card
-          face={ card.face }
-          faceDown={ card.faceDown }
-          color={ card.color }
-          key={ i }
-      />
-    )}
+export const Hand = ({ label, cards, score }) =>
+  <div className="hand-wrapper">
+    <div>
+      <label className="hand-label">{ label }</label> <span style={{ background: 'white', color: 'rgb(53,101,77)', padding: 2, borderRadius: 4 }}>{score}</span>
+    </div>
+    <div className="hand">
+      { cards.map((card, i) =>
+        <Card
+            face={ card.face }
+            faceDown={ card.faceDown }
+            color={ card.color }
+            key={ i }
+        />
+      )}
+      {cards.length === 0 && (
+        <div className="grid-item card">
+        <div className="top-left">
+          <div>?</div>
+        </div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div className="bottom-right">
+          <div>?</div>
+        </div>
+      </div>
+      )}
+    </div>
   </div>;
-
+function statusfn(status) {
+  switch (status) {
+    case 'Playing':
+      return `${status} 🃏`
+      break;
+    case 'Win':
+        return `${status} 🎉`
+      break;
+    case 'Lose':
+        return `${status} 😩`
+      break;
+    case 'Waiting':
+      return `${status} 🕤`;
+      break;
+  }
+}
 export const BlackjackGame = ({
     newGame,
     deal,
@@ -42,30 +108,67 @@ export const BlackjackGame = ({
     playerScore,
     status
 }) =>
-  <div>
-    <button disabled ={ drawPile && drawPile.length === 0 }onClick={ deal }>{language.deal}</button>
-    <button onClick={()=> {
-      __switchLanguage();
-      quit();
-     }}>{language.profile}</button>
-    <hr />
-    { drawPile && drawPile.length === 0 &&
-      [<div>{language.deckEmptyMsg} <button onClick={newGame}>Restart game</button></div>,
-       <hr />] }
-    <Hand label={language.dealerHand} cards={ dealerHand } />
-    <div>{language.dealerScore} {
-        status === statuses.PLAYING
-            ? '?'
-            : dealerScore }</div>
-    <hr />
-    <Hand label={language.playerHand} cards={ playerHand } />
-    <div>{language.playerScore} { playerScore }</div>
-    <hr />
-    <button disabled = {dealerHand.length ===0 ||status!=statuses.PLAYING ||drawPile && drawPile.length === 0 } onClick={ () => hit('player') }>{language.hit}</button>
-    <button disabled = {dealerHand.length ===0 ||status!=statuses.PLAYING ||drawPile && drawPile.length === 0} onClick={ stand }>{language.stand}</button>
-    <button disabled = {dealerHand.length ===0 ||status!=statuses.PLAYING ||drawPile && drawPile.length === 0 } onClick={ quit }>{language.quit}</button>
-    <hr />
-    <div style={{ fontWeight: 'bold' }}>{ status }</div>
+  <div className="b-table">
+    <div style={{ display: 'flex'}}>
+      <div style={{ flex: '1 1 auto'}}>
+        <div className="submenu">
+          <button
+            className='language'
+            onClick={()=> {
+              __switchLanguage();
+              quit();
+            }}>
+              {language.profile}
+          </button>
+        </div>
+        <h1 className="title">Blackjack</h1>
+        <div className="action">
+          <button
+            disabled={ drawPile && drawPile.length === 0 }
+            className="deal"
+            onClick={ deal }>
+              {language.deal}
+          </button>
+        </div>
+
+        { drawPile && drawPile.length === 0 &&
+          <div>{language.deckEmptyMsg} <button onClick={newGame}>Restart game</button></div> }
+
+          <div>
+            <Hand
+              label={language.dealerHand}
+              cards={ dealerHand }
+              score={status === statuses.PLAYING ? '?' : dealerScore}
+            />
+          </div>
+          <div style={{ marginTop: '20px'}}>
+            <Hand label={language.playerHand} cards={ playerHand } score={playerScore} />
+          </div>
+        
+        <div style={{ display: 'flex', justifyContent: 'center', margin: 24 }} className="actions-btn">
+          <button
+            disabled={dealerHand.length === 0 || status !== statuses.PLAYING || drawPile && drawPile.length === 0}
+            onClick={() => hit('player')}>
+              {language.hit}
+          </button>
+
+          <button
+            disabled={dealerHand.length === 0 || status !== statuses.PLAYING || drawPile && drawPile.length === 0}
+            onClick={ stand }>
+              {language.stand}
+          </button>
+
+          <button
+            disabled={dealerHand.length === 0 || status !== statuses.PLAYING || drawPile && drawPile.length === 0}
+            onClick={ quit }>
+              {language.quit}
+          </button>
+        </div>
+      </div>
+      <div style={{ fontWeight: 'bold', display: 'flex', justifyContent: 'center', alignItems: 'center', flex: '1 1 auto', color: 'white', fontSize: 50}}>
+        { statusfn(status) }
+      </div>
+    </div>
   </div>;
 
 const mapStateToProps = (state) => state;

@@ -3,7 +3,8 @@ import { newShuffledPokerDeck, calculatePlayerScore } from '../cards';
 export const statuses = {
   PLAYING: 'Playing',
   WIN: 'Win',
-  LOSE: 'Lose'
+  LOSE: 'Lose',
+  WAITING: 'Waiting',
 };
 
 const initialState = {
@@ -12,7 +13,7 @@ const initialState = {
   dealerScore: 0,
   playerHand: [],
   playerScore: 0,
-  status: statuses.PLAYING
+  status: statuses.WAITING
 };
 
 const calculateOutcomeStatus = (playerScore, dealerScore) => {

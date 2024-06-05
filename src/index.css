@@ -2,4 +2,109 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background: rgb(53,101,77);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.b-table {
+  min-width: 800px;
+}
+
+.title {
+  color: #fff;
+  font-size: 40px;
+  margin: 0;
+}
+
+.grid-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 2fr 1fr;
+  grid-gap: 5px;
+  background-color: white;
+  color: black;
+  font-size: 1.5em;
+  padding: 10px;
+  border-radius: 5%;
+  box-shadow: 0px 5px 15px grey;
+}
+
+.heart {
+  text-align: center;
+  align-self: center;
+  font-size: 2em;
+  color: red;
+}
+
+.top-left {
+  padding: 0.1em;
+}
+
+.bottom-right {
+  align-self: end;
+  transform: rotate(180deg);
+}
+
+.hand {
+  display: flex;
+  flex: 0 0 100px;
+  justify-content: center;
+}
+.card {
+  flex: 0 0 120px;
+}
+.hand-wrapper {
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  align-items: center;
+}
+.hand-label {
+  color: #fff;
+  display: inline-block;
+  margin: 0 0 20px 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+.action {
+  margin: 20px 0 40px 0;
+}
+.deal {
+  appearance: none;
+  border: 0;
+  background: rgb(37, 70, 53);
+  color: white;
+  border-radius: 4px;
+  font-size: 30px;
+  padding: 4px 24px;
+  display: block;
+  width: 100%;
+}
+.submenu {
+  display: flex;
+  justify-content: flex-end;
+}
+.language {
+  background: transparent;
+  border: 1px solid rgb(202, 202, 202);
+  color: rgb(202, 202, 202);
+  border-radius: 4px;
+  padding: 4px 12px;
+}
+.actions-btn > button {
+  border-radius: 4px;
+  background: white;
+  border: 0;
+  padding: 12px 24px;
+  margin-inline-start: 10px;
+  color: rgb(53,101,77);
+}
+button:disabled {
+  opacity: 0.5
 }
